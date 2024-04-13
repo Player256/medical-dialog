@@ -9,3 +9,4 @@ faiss-cpu
 altair
 tiktoken
 huggingface-hub
+pypdf
