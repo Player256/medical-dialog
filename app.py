@@ -1,5 +1,4 @@
 import os
-from dotenv import load_dotenv
 import streamlit as st
 from streamlit_chat import message
 from langchain_community.llms import HuggingFaceHub
@@ -9,8 +8,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
-
-load_dotenv()
 
 os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
 
