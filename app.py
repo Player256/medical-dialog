@@ -8,8 +8,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.memory import ConversationBufferMemory
-
-os.environ["HUGGINGFACEHUB_API_TOKEN"] = "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"
+from langchain_nvidia_ai_endpoints import ChatNVIDIA
 
 loader = DirectoryLoader("data/",glob="*.pdf",loader_cls = PyPDFLoader)
 documents = loader.load()
@@ -22,16 +21,7 @@ embeddings = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniL
 
 vector_store = FAISS.from_documents(text_chunks,embeddings)
 
-repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
-
-llm = HuggingFaceHub(
-    repo_id=repo_id,
-    model_kwargs = {
-        "temperature" : 0.5,
-        "max_length" : 128,
-        "max_new_tokens" : 512
-    }
-)
+llm = ChatNVIDIA(model="llama2_13b")
 
 memory = ConversationBufferMemory(memory_key = "chat_history",return_messages = True)
 
