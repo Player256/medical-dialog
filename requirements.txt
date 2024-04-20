@@ -9,4 +9,5 @@ faiss-cpu
 altair
 tiktoken
 huggingface-hub
-langchain-nvidia-ai-endpointspypdf
+langchain-nvidia-ai-endpoints
+pypdf
