@@ -13,13 +13,18 @@ from langchain_nvidia_ai_endpoints import ChatNVIDIA
 loader = DirectoryLoader("data/",glob="*.pdf",loader_cls = PyPDFLoader)
 documents = loader.load()
 
+
+
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=500,chunk_overlap=50)
 text_chunks = text_splitter.split_documents(documents)
 
 embeddings = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniLM-L6-v2",
                                    model_kwargs = {'device' : 'cpu'})
 
-vector_store = FAISS.from_documents(text_chunks,embeddings)
+db = FAISS.from_documents(text_chunks,embeddings)
+db.save_local("vector_store/faiss_index")
+
+vector_store= db.load_local("vector_store/faiss_index",embeddings)
 
 llm = ChatNVIDIA(model="llama2_13b")
 
