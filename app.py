@@ -22,7 +22,7 @@ embeddings = HuggingFaceEmbeddings(model_name = "sentence-transformers/all-MiniL
                                    model_kwargs = {'device' : 'cpu'})
 
 db = FAISS.from_documents(text_chunks,embeddings)
-db.save_local("vector_store/faiss_index")
+db.save_local("vector_store/faiss_index",allow_dangerous_deserialization=True)
 
 vector_store= db.load_local("vector_store/faiss_index",embeddings)
 
